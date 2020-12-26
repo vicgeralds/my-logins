@@ -10,7 +10,6 @@ export default function NewLogin () {
       <TextField
         name='domain' label='Name' autocomplete='off'
         placeholder='example.com'
-        required
       />
       <TextField
         name='email' label='Username or email' autoComplete='email username'

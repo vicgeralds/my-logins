@@ -6,6 +6,7 @@ import { useSubmitState } from '../hooks'
 import Page from './Page'
 import NewLogin from './NewLogin'
 import ChangePassword from './ChangePassword'
+import CurrentPassword from './CurrentPassword'
 
 const theme = createMuiTheme({
   typography: {
@@ -30,6 +31,10 @@ export function App () {
 
 function FormRouter () {
   const state = useSubmitState(serialize)
+
+  if (state && state.domain === '') {
+    return <Page title='Current password'><CurrentPassword /></Page>
+  }
 
   if (state && state.domain) {
     return <Page title='Update password'><ChangePassword /></Page>

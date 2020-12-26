@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Button,
   TextField
@@ -9,7 +9,7 @@ export default function ChangePassword () {
   const [valid, setValid] = useState(false)
 
   const events = {
-    onChange
+    onChange: useCallback(onChange)
   }
 
   const username = domain + (email && `/${email}`)
