@@ -12,11 +12,13 @@ export default function ChangePassword () {
     onChange
   }
 
+  const username = domain + (email && `/${email}`)
+
   return (
     <form action='#saved' {...events}>
       <TextField
         name='username' autoComplete='username'
-        defaultValue={`${domain}/${email}`}
+        defaultValue={username}
       />
       <TextField
         type='password'
