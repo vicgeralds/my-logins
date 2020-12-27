@@ -4,7 +4,7 @@ import { TextField, InputAdornment, IconButton } from '@material-ui/core'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-export default function CurrentPassword () {
+export default function CurrentPassword ({ username = '' }) {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
   const events = {
@@ -27,8 +27,9 @@ export default function CurrentPassword () {
   return (
     <form {...events}>
       <TextField
-        name='username' label='Username' autoComplete='username'
+        name='username' label='Saved login' autoComplete='username'
         placeholder='example.com/username'
+        defaultValue={username}
       />
       <TextField
         type={passwordVisible ? 'text' : 'password'}
@@ -37,9 +38,16 @@ export default function CurrentPassword () {
           endAdornment
         }}
       />
-      <TextField name='email' autoComplete='off' />
+      <TextField
+        name='email' label='Username or email' autoComplete='off'
+        defaultValue={extractEmail(username)}
+      />
     </form>
   )
+
+  function extractEmail (username) {
+    return username.split('/')[1] || ''
+  }
 
   function onChange (changeEvent) {
     const { name, value } = changeEvent.target
@@ -47,7 +55,7 @@ export default function CurrentPassword () {
     switch (name) {
       case 'username': {
         const formElements = changeEvent.currentTarget.elements
-        formElements.email.value = value.split('/')[1] || ''
+        formElements.email.value = extractEmail(value)
         break
       }
     }

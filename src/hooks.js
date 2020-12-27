@@ -21,6 +21,22 @@ export function usePushState () {
   }
 }
 
+export function useHashChange () {
+  const [hash, setHash] = useState(window.location.hash)
+
+  useEffect(function () {
+    window.addEventListener('hashchange', onHashChange)
+    return function () {
+      window.removeEventListener('hashchange', onHashChange)
+    }
+    function onHashChange () {
+      setHash(window.location.hash)
+    }
+  }, [])
+
+  return hash && decodeURI(hash.slice(1))
+}
+
 export function useSubmitState (serialize) {
   const [state, pushState] = usePushState()
 
